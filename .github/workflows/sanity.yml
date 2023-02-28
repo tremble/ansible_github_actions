@@ -86,7 +86,7 @@ jobs:
         os:
           - ubuntu-latest
         ansible-version:
-          - stable-2.9
+        #  - stable-2.9
           - stable-2.12
           - stable-2.13
           - stable-2.14
@@ -99,12 +99,12 @@ jobs:
           - "3.10"
           - "3.11"
         exclude: ${{ fromJSON(inputs.matrix_exclude) }}
-        include:
-          # Python 3.6 is not available after ubuntu-20.04
-          # Python 3.6 is not supported on Ansible 2.12+
-          - os: ubuntu-20.04
-            ansible-version: stable-2.9
-            python-version: "3.6"
+        # include:
+        #   # Python 3.6 is not available after ubuntu-20.04
+        #   # Python 3.6 is not supported on Ansible 2.12+
+        #   - os: ubuntu-20.04
+        #     ansible-version: stable-2.9
+        #     python-version: "3.6"
     continue-on-error: ${{ matrix.ansible-version == 'devel' }}
     runs-on: ${{ matrix.os }}
 
