@@ -100,8 +100,7 @@ jobs:
           - os: ubuntu-20.04
             ansible-version: stable-2.9
             python-version: "3.6"
-        experimental: ${{ matrix.ansible-version == 'devel' }}
-      continue-on-error: ${{ matrix.experimental }}
+    continue-on-error: ${{ matrix.ansible-version == 'devel' }}
     runs-on: ${{ matrix.os }}
 
     name: "py${{ matrix.python-version }} / ${{ matrix.os }} / ${{ matrix.ansible-version }}"
