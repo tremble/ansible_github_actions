@@ -2,6 +2,11 @@ name: Sanity tests
 on:
   workflow_call:
     inputs:
+      update_galaxy_version:
+        description: If the version ID in galaxy.yml should be updated based on tags
+        required: false
+        default: true
+        type: boolean
       matrix_exclude:
         # 2.9/3.9 not supported
         # 2.9/3.10 not supported
@@ -122,9 +127,10 @@ jobs:
 
       - name: Read collection metadata from galaxy.yml
         id: identify
-        uses: ansible-network/github_actions/.github/actions/identify_collection@main
+        uses: tremble/ansible_github_actions/.github/actions/identify_collection@devel/experimental
         with:
           source_path: ${{ env.source_directory }}
+          update_galaxy_version: ${{ inputs.update_galaxy_version }}
 
       - name: Build and install the collection
         uses: ansible-network/github_actions/.github/actions/build_install_collection@main

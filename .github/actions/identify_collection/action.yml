@@ -5,6 +5,10 @@ inputs:
   source_path:
     description: Path to the collection source root
     required: true
+  update_galaxy_version:
+    description: If the version ID in galaxy.yml should be updated based on tags
+    required: false
+    default: true
 outputs:
   tar_file:
     description: The collection tarball when built
@@ -27,6 +31,7 @@ runs:
       run: yq -yi ".version=\"$(git describe --tags)\"" 'galaxy.yml'
       shell: bash
       working-directory: ${{ inputs.source_path }}
+      if: ${{ fromJSON(inputs.update_galaxy_version) }}
 
     - name: Extract metadata from galaxy.yml
       id: keys
